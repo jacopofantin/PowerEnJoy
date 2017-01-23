@@ -1,0 +1,416 @@
+\chapter{Project Size, Cost and Effort Estimation}
+
+This chapter regards the assessment of the required resourced in order for the project PowerEnJoy to be completed. This estimate concerns size estimation at first, that can be well enough represented through the number of Lines Of Code, and then cost and effort estimation at second, which corresponds to an estimate of how much time the entire development process will take.
+
+
+\section{Size Estimation: Function Points}
+
+To estabilish an approximated size for the project, the Function Points approach has been employed. This method dates back to 1975 and bases itself on estimation from the services it offers. For each functionality, a number of FPs is to be assigned based on the weight the function is believed to have. The sum of the FPs will provide the Unadjusted Function Points from which to derive the LOC number. According to this algorithm, functions are grouped by function types, namely:
+
+\begin{itemize}
+\item\ \textbf{Internal Logical Files}, set of data generated and managed by the application itself;
+\item\ \textbf{External Logical Files}, set of data that the application makes use of but are generated and managed by other applications;
+\item\ \textbf{External Input}, functionalities that process data coming from the external environment;
+\item\ \textbf{External Output}, functions that provide data for external applications to be processed;
+\item\ \textbf{External Inquiry}, operations involving input and output substantially without elaboration of data coming from logical files.
+\end{itemize}
+
+Each function or data element is given a grade of complexity, i.e. low, average or high, looking at the amount of fields that compose it. This done, we assigned an amount of FPs to each element according to the function type it belongs to, as shown in the following table:
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | }
+\hline
+	\textbf{Function Type} & \textbf{Low} & \textbf{Avg} & \textbf{High} \\ \hline\hline
+	ILF & 7 & 10 & 15  \\ \hline
+	EIF & 5 & 7 & 10  \\ \hline
+	EI & 3 & 4 & 6  \\ \hline
+	EO & 4 & 5 & 7  \\ \hline
+	EQ & 3 & 4 & 6  \\ \hline
+\end{tabular}
+\end{center}
+
+We now move to considering every single function type of those mentioned above to estimate the number of FP to be assigned to each of them.
+
+\subsection{Internal Logical Files (ILF)}
+
+Our system makes use of several data that are internally stored and provide almost every information the service needs for its purpose. These data can be divided as follows:
+
+\begin{description}
+\item[User data] These pieces of information are necessary for the user attributes and comprise: user ID, password, name, surname, email address, driving license number, credit card number and location.
+\item[Car data] Store information each car registered in the system has to hold and include: car plate, status, last position, battery level, and whether the car is plugged in or not.
+\item[Reservation data] These are attributes that indicate date and time of a reservation, its ID, the related user and car involved.
+\item[Ride data] Give information about the recorded rides, such as status, the distance, the date, the corresponding reservation, the price and potential discounts and fees that could be applied to the final price.
+\item[Payment data] The Payment entity stores simple information such as state of the payment and amount, beyond the indication of the reservation to which it is connected.
+\item[PowerGridStation data] These are fields showing information about power grid stations, i.e. the corresponding ID number, the position, and the station status.
+\item[SafeArea data] In order to know everything about the safe area, we just have to recognize its boundaries through their locations.
+\end{description}
+
+All of the fields of these elements can be considered as simple pieces of information, exept for the Reservation and Ride entities, which are more complex since they have to deal with more computations and are linked to other elements' fields. Thus, we are allowed to bestow the Medium complexity on Reservation data and Ride data, and the Low one for each of the others. The total amount of FP for the ILF function type is \( 10 \cdot 2 + 7 \cdot 5 = 55 \> FPs \).
+
+\subsection{External Interface Files (EIF)}
+
+The rest of the files the system needs is provided by the external environment, in particular these information are location data coming from Google Maps API. We can assume that these data have in general a medium complex structure, for the total amount of FPs for EIF is \( 7 \cdot 1 = 7 \> FPs \).
+
+\subsection{External Inputs (EI)}
+
+The main operations that the user has to be able to perform are:
+
+\begin{description}
+\item[Registration, login, logout:] these three are basic functions that don't require much implementation efforts. We can model them with low complexity items.
+\item[Reserve a car:] making a reservation is not trivial as it involves a User, a Car and a Reservation object itself. It can be weighted as of average complexity.
+\item[Cancel a reservation:] this is an easier function than the reservation one, so we can confer low complexity on it.
+\item[End the ride:] it involves a Ride and a Payment object, since it computes the corresponding bill for a specific service employment. Medium complexity.
+\end{description}
+
+The total number of FPs for the EI function type is therefore \( 3 \cdot 3 + 4 + 3 + 4 = 20 \> FPs \).
+
+\subsection{External Outputs (EO)}
+
+PowerEnJoy provides as outputs for the user usage:
+
+\begin{description}
+\item[Send email:] after a reservation a password must be sent to the user via email, who will use the password to unlock the reserved car. Simple operation.
+\item[Show map:] in this function we intend to include the position of user, cars, and power grid stations, so it counts for three distinct entities of average complexity.
+\item[Send receipt:] this operation is performed once the ride comes to an end. It delivers a receipt so that the right amount of money (taking into account discounts and additional fees) is subtracted from the user's credit card for the payment. It deals with a bank account, so at least we could consider this as a medium complexity function.
+\end{description}
+
+Summing these quantities up, we obtain a number of \( 4 + 5 \cdot 3 + 5 = 24 \> FPs \).
+
+\subsection{External Inquiries (EQ)}
+
+For the case of interest, we have a limited number of External Inquiries that allow the customer to request information about:
+
+\begin{description}
+\item[User profile:] details on personal information in the user's reserved area.
+\item[Reservation details:] list of the reservations that have been confirmed by the user.
+\end{description}
+
+Both of these operations can be considered as low complexity operations, so that we allocate \(3 \cdot 2 = 6 \> FPs \) for the EQ function type.
+
+\subsection{Overall Estimation}
+
+\begin{center}
+\begin{tabular}{ | c | c | }
+\hline
+	\textbf{Function Type} & \textbf{Value} \\ \hline\hline
+	ILF & 55 \\ \hline
+	EIF & 7 \\ \hline
+	EI & 20 \\ \hline
+	EO & 24 \\ \hline
+	EQ & 6 \\ \hline\hline
+	\textbf{Total} & \textbf{112} \\ \hline
+\end{tabular}
+\end{center}
+
+This total quantity represents our UFP number.
+The Function Points method now allows to compute a low and a high boundary between which lays the estimated number of LOC that the software project will consist of. Based on the previously found total UFPs, these boundaries are given by the formula
+
+\[ Size = AVC \cdot UFP \]
+
+where AVC is a language-dependent multiplication factor. According to the Function Point Language Table, version 5.0. We assume we employ the factor corresponding to the avarage value for the lower bound estimation instead of the specific lower bound value, as we believe that the resulting range would fit better a realistic situation. Moreover, we obtain a more precise estimated range by doing so. Since we're developing this project on the J2EE platform, this factor equals 46 for the average and 67 for the upper bound for the number of LOC. This way, we can conclude that the approximated number of LOC stays between the two bounds
+
+\[ lower \> bound \> Size = 46 \cdot 112 = \textbf{5152 LOC} \]
+\[ upper \> bound \> Size = 67 \cdot 112 = \textbf{7504 LOC} \]
+
+
+\section{Cost and Effort Estimation: COCOMO II}
+
+To compute the approximated effort and the cost in terms of time necessary for the whole application to be implemented, we relied on the algorithm in accordance with the COCOMO II method, a statistical approach to cost estimation for software projects. It consists in derive the effort, expressed in Person-Months, from parameters called Scale Factors and Cost Drivers, and from the LOC number, through a formula that puts in relation all of them to the effort. The effort will be then used among the Scale Factors to derive the estimated time duration, i.e. the schedule estimation, for the project.
+
+The first step when approaching the COCOMO II method is deciding whether we are in a situation of Post-Architecture or Early Design. A tipical case for the first one is when extending an existing software or when developing new software for an already existing software package: the experience with the previously implemented product would come in handy for a better evaluation of the efforts required for the current project. Instead, we would find ourselves in the Early Design case if we didn't have much information about the system architecture. Obviously, the estimation is less accurate in this latter case.
+
+Luckily, we are in the Post-Architecture case, so we'll be able to rely on similar projects previously completed and on the estimations that had been computed for them.
+
+\subsection{Scale Factors}
+
+The second step is determing the right values for the Scale Factors that will make up a part of the final formula used to calculate the effort. While estabilishing the values for Scale Factors the following table provided by the COCOMO II approach has been employed.
+
+%\begin{tabular}{ | L{1.25cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+	\textbf{Scale Factors} & \textbf{Very Low} & \textbf{Low} & \textbf{Nominal} & \textbf{High} & \textbf{Very High} & \textbf{Extra High} \\ \hline
+	PREC  SFj  & thoroughly unprecedented 6.20 & largely unprecedented 4.96 & somewhat unprecedented 3.72 & generally familiar 2.48 & largely familiar 1.42 & thoroughly familiar 0.00 \\ \hline
+	FLEX SFj  & rigorous 5.07 & occasional relaxation 4.05 & some relaxation 3.04 & general conformity 2.03 & some conformity 1.01 & general goals 0.00 \\ \hline
+	RESL SFj  & little (20\%) 7.07 & some (40\%) 7.07 & often (60\%) 4.24 & generally (75\%) 2.83 & mostly
+(90\%) 1.41 & full (100\%) 0.00 \\ \hline
+	TEAM SFj  & very difficult interactions 5.48 & some difficult interactions 4.38 & basically cooperative interactions 3.29 & largely cooperative 2.19 & highly cooperative 1.10 & seamless interactions 0.00  \\ \hline
+	PMAT SFj  & SW-CMM Level 1 Lower 7.80 & SW-CMM Level 1 Upper 6.24 & SW-CMM Level 2 4.86 & SW-CMM Level 3 3.12 & SW-CMM Level 3  1.56 & SW-CMM Level 5  0.00 \\ \hline
+\end{tabular}
+
+For each Scale Factor, we tried to decide for our situation what was the best describing case.
+
+\begin{description}
+\item[Precedentedness:] this value is high if similar projects have been implemented previously, so it gives a clue about confidence. Our development team's members haven't worked on such matter yet, therefore we evaluate this item as low.
+\item[Development flexibility:] this item is about how much flexible the software development process is. As we specified in the Requirement Analysis and Specification Document, we must satisfy several requests that have been formulated by the customer to accomplish the pre-estabilished goals. Although, we might consider the flexibility as nominal as a certain degree of freedom is left by the customer on the system architecture and many of the software functionalities.
+\item[Risk resolution:] the higher the control we have on the risks and the consciousness of them, the higher the value for this item. For this document we made some assumptions and considerations about risk management. That's why we give a nominal score to the item.
+\item[Team cohesion:] it evaluates the mood between the teammates and their capacity to cooperate to achieve the common aim. Our group demonstrated a great cohesion and communication abilities to convey information among the members, which began quickly to get along with each other. Thus, we evaluate ourselves with a very high value.
+\item[Process maturity:] It refers to a method, known as CMM, for evaluating the maturity of a development team. We confer low level on this item, considering that we don't own any experience with the Java EE platform and that we formed a project group just right before this project started.
+\end{description}
+	
+A table with the final values is shown below:
+\begin{center}
+\begin{tabular}{ | l | c | c | }
+\hline
+	\textbf{Scale Driver} & \textbf{Factor} & \textbf{Value}  \\ \hline\hline
+	Precedentedness (PREC)& Low &  4.96 \\ \hline
+	Development Flexibility (FLEX) & Nominal & 3.04 \\ \hline
+	Risk resolution (RESL) & Nominal & 4.24  \\ \hline
+	Team cohesion (TEAM)  & Very high &  1.10  \\ \hline
+	Process maturity (PMAT) &  Low & 6.00 \\ \hline
+         \multicolumn{1}{|l}{}\textbf{Total} &  & \textbf{19,34} \\ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Cost Drivers}
+
+The next step is evaluating a set of parameters called Cost Drivers, giving an appropriate evaluation to each of them one by one. The evaluations are then translated into the corresponding Effort Multipliers thanks again to tables provided by COCOMO II. These are going to contribute for an other part of the effort formula.
+
+\begin{description}
+\item[Required Software Reliability (RELY):] this parameter measures how much damage a service interruption would cause, mostly from a financial viewpoint. As the potential users would expect a strong reliability on the PowerEnJoy system, we assign a the "high" label to this Cost Driver.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Required Software Reliability (RELY)}} \\ \hline  \hline
+	\textbf{RELY Descriptors} & Slight Inconvenience & Low, easily recoverable losses & Moderate, easily recoverable losses & High financial loss & Risk to human life& \\ \hline
+	\textbf{Rating} & Very Low & Low & Nominal  & High & Very High & Extra High\\ \hline
+	\textbf{Effort multipliers} & 0.82 & 0.92 & 1.00 & 1.10 & 1.26 &  n/a \\ \hline
+\end{tabular}
+
+\item[Database size (DATA):] an estimation of the DB size is given by COCOMO II through the D/P ratio(DB bytes/LOC). Considering that we expect our DB to contain more or less 2GB of data, and remembering the computed number of LOC is in the range of 5150-7500, the resulting D/P ratio falls in the range of 400-582, so DATA assumes a high value.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Database size (DATA)}} \\ \hline  \hline
+	\textbf{DATA Descriptors} & & D/P<10&10 < D/P <100 &100 < D/P <1000 & D/P >1000  & \\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & n/a & 0.90 & 1.00 & 1.14 & 1.28 &  n/a \\ \hline
+\end{tabular}
+
+\item[Product complexity (CPLX):] as we tried to keep the software structure and components as simple as possible, we believe the level of complexity should be considered as nominal.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Product complexity (CPLX)}} \\ \hline  \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 0.73 & 0.87 & 1.00 & 1.17 & 1.34 &  1.74 \\ \hline
+\end{tabular}
+
+\item[Required reusability (RUSE):] reusability was not a priority for our specifications and was never explicitly requested by the customer, thus RUSE assumes a nominal value.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Required reusability (RUSE)}} \\ \hline  \hline
+         	\textbf{RUSE Descriptons} & & None & Across project & Across program& Across product line &Across multiple product lines \\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & n/a & 0.95 & 1.00 & 1.07 & 1.15 &  1.24 \\ \hline
+\end{tabular}
+
+\item[Documentation match to life cycle needs (DOCU):] the DOCU evaluates whether the project documentation meets the needs of the project life cycle. Since the project documentation is up to date with the project life cycle needs the evaluation will be again set as nominal.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Documentation match to life-cycle needs  (DOCU)}} \\ \hline  \hline
+         	\textbf{DOCU Descriptons} &Many life-cycle needs uncovered & Some life-cycle needs uncovered & Rightsized to life-cycle needs &  Excessive for lifecycle needs & Very excessive for life-cycle needs &\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 0.81 & 0.91 & 1.00 & 1.11 & 1.23 &  n/a \\ \hline
+\end{tabular}
+
+\item[Execution time constraint (TIME):] Being this Cost Driver the measure of the usage of the CPU processing power, and considering that the service has a strong real-time constraint due to the fact that it is supposed to receive lots of requests each minute, we label TIME with high.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Execution time constraint (TIME)}} \\ \hline  \hline
+         	\textbf{TIME Descriptons} & & & <= 50\% use of available execution time& 70\% use of available execution time& 85\% use of available execution time &95\% use of available execution time\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & n/a & n/a & 1.00 & 1.11 & 1.29 & 1.63 \\ \hline
+\end{tabular}
+
+\item[Storage constraint (STOR):] the STOR evaluates the storage constraint that is imposed in a software. We didn't take into acccount particular storage limitation, and we don't expect the application to need that much storage capacity. That's why we will just consider this driver as nominal.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Storage constraint (STOR)}} \\ \hline  \hline
+         	\textbf{STOR Descriptons} & & & <= 50\% use of available execution time& 70\% use of available execution time& 85\% use of available execution time &95\% use of available execution time\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & n/a & n/a & 1.00 & 1.05 & 1.17 & 1.46 \\ \hline
+\end{tabular}
+
+\item[Platform Volatility (PVOL):] the higher this parameter, the more frequent will be the updates of the source code. Being PowerEnJoy first of all a mobile application, and considering the fact that we are concerned to release only the essential functions with the first release of the software, we expect PVOL to be in between a nominal and a high value, with major changes on average every 4 months and weekly minor changes.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Platform Volatility (PVOL)}} \\ \hline  \hline
+         	\textbf{PVOL Descriptons} & & Major change every 12 month, minor change every 1 month.&Major change every 6 month, minor change every 2 weeks.&Major change every 2 month, minor change every 1 week.& Major change every 2 weeks, minor change every 2 days. & \\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & n/a & 0.87 & 1.00 & 1.15 & 1.30 & n/a \\ \hline
+\end{tabular}
+
+\item[Analyst Capability (ACAP):] ACAP shows the level of ability and efficiency of the team as for the analysis skills. We consider our analysis work as more than sufficient as we came to a deep enough level of comprehension of the problem solved by the app.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Analyst Capability (ACAP)}} \\ \hline  \hline
+         	\textbf{ACAP Descriptons} & 15th percentile &35th percentile& 55th percentile& 75th percentile & 95th percentile&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.42 & 1.19 & 1.00 & 0.85 & 0.71 & n/a \\ \hline
+\end{tabular}
+
+\item[Programmer Capability (PCAP):] like ACAP regards analysis aspects, PCAP evaluates the programming capacity of the team members. Since the project has not been implemented yet we estimated this Cost Driver looking at the individual teammate's experience and skills on programming, resulting again in a high evaluation.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Programmer Capability (PCAP)}} \\ \hline  \hline
+         	\textbf{PCAP Descriptons} & 15th percentile &35th percentile& 55th percentile& 75th percentile & 90th percentile&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.34 & 1.15& 1.00 & 0.88 & 0.76 & n/a \\ \hline
+\end{tabular}
+
+\item[Personnel Continuity (PCON):] The personnel continuity factor indicates how much of the project team will change in one year. It assumes the maximal value in our case, because we are going to end up the project exactly like we started.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Personnel Continuity (PCON)}} \\ \hline  \hline
+         	\textbf{PCON Descriptons} & 48\% per year&24\% per year&12\% per year&6\% per year&3\% per year&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.29 & 1.12& 1.00 & 0.90 & 0.81 & n/a \\ \hline
+\end{tabular}
+
+\item[Application Experience (APEX):] APEX gives an idea of the experience the team has with the application. As we nearly passed 4 months dealing with this software, the suitable value would be something between low and very low.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Application Experience (APEX)}} \\ \hline  \hline
+         	\textbf{APEX Descriptons} & <= 2 months & 6 months&1 year & 3 year& 6 year&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.22 & 1.10 & 1.00 & 0.88 & 0.81 & n/a \\ \hline
+\end{tabular}
+
+\item[Platform Experience (PLEX):] this is the the rating of the experience of the group with the development platform, which in our case is Java EE. Therefore we decide to evaluate it as low since none of us is confident with this platform at the time being.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Platform Experience (PLEX)}} \\ \hline  \hline
+         	\textbf{PLEX Descriptons} & <= 2 months & 6 months &1 year & 3 year& 6 year&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.19 & 1.09 & 1.00 & 0.91 & 0.85 & n/a \\ \hline
+\end{tabular}
+
+\item[Language and Tool Experience (LTEX):] similar to the PLEX, the LTEX stands for team members experience with the language and tools that have been employed for the project development. We decided to choose a nominal level as an average between our long term experience with the language, Java, and the short term experience with the development tools such as the development platform.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Language and Tool Experience (LTEX)}} \\ \hline  \hline
+         	\textbf{LTEX Descriptons} & <= 2 months & 6 months &1 year & 3 year& 6 year&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.20 & 1.09 & 1.00 & 0.91 & 0.84 & n/a \\ \hline
+\end{tabular}
+
+\item[Use of Software Tools (TOOL):] this Cost Driver is useful to understand what kind of developing method and environment has been employed to carry on the project. We had at disposal strong enough software tools that support modern programming and software engineering patterns in an integrated way, so TOOL is evalueted as high.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Use of Software Tools (TOOL)}} \\ \hline  \hline
+         	\textbf{TOOL Descriptons} &Edit, code, debug &Simple, frontend, backend CASE, little integration & Basic lifecycle tools, moderately integrated.& Strong, mature lifecycle tools, moderately integrated & Strong, mature, proactive lifecycle tools, well integrated with processes, methods, reuse.&\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.17 & 1.09 & 1.00 & 0.90 & 0.78 & n/a \\ \hline
+\end{tabular}
+
+\item[Multisite development (SITE):]  SITE takes in consideration the aftermaths of team members living far one from the others, and is a combination of two factors: site collocation and communication support. In our case, the team meets daily or almost daily as we may say the members live in the same metro area. However, they're supported by any kind of modern communication media, first of all chatting services. For this reason we bestow a high label on SITE.
+
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Multisite development (SITE)}} \\ \hline  \hline
+         	\textbf{SITE Collocation} &International&Multi-city and multicompany& Multi-city or multicompany& Same city or metro area&Same building or complex&Fully collocated\\ \hline
+         	\textbf{SITE Communications} &Some phone, mail.&Individual phone, FAX.& Narrowband email.& Wideband electronic communication.&Wideband electronic communication.& Interactive multimedia.\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.22 & 1.09 & 1.00 & 0.93 & 0.86 & n/a \\ \hline
+\end{tabular}	
+
+\item[Required development schedule (SCED):] the parameter measures how much time has been employed by the development team more or less than the nominal required amount of effort in the development of a project. It is evaluated as low due to the fact that a little less time than the nominal one has been spent by the members for PowerEnJoy, mainly because of othersimultaneous pending tasks.
+
+%\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
+\begin{tabular}{ | c | c | c | c | c | c | c | }
+\hline
+         \multicolumn{7}{|c|}{\textbf{Required development schedule (SCED)}} \\ \hline  \hline
+         	\textbf{SCED Descriptons} &75\% of nominal &85\% of nominal &100\% of nominal &130\% of nominal &160\% of nominal &\\ \hline
+	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
+	\textbf{Effort multipliers} & 1.43 & 1.14 & 1.00 & 1.00 &  1.00 & n/a \\ \hline
+\end{tabular}
+\end{description}
+
+Putting together all the results of the analyzed points we obtained the following table:
+
+\begin{tabular}{ | l | l| l |}
+\hline
+	\textbf {Cost Drive} & \textbf {Factor} & \textbf {Value} \\ \hline\hline
+	Required Software Reliability (RELY) & High & 1.10 \\
+	Database size (DATA) & High & 1.14  \\
+	Product complexity (CPLX)  & Nominal & 1.00 \\
+	Required reusability (RUSE)& Nominal & 1.00 \\
+	Documentation match to life cycle needs (DOCU) & Nominal & 1.00 \\
+	Execution time constraint (TIME)& High & 1.11 \\
+	Storage constraint (STOR) & Nominal & 1.00 \\
+	Platform Volatility (PVOL) & Nominal-High & 1.10 \\
+	Analyst Capability (ACAP) & High & 0.85 \\
+	Programmer Capability (PCAP) & High & 0.88 \\
+	Personnel Continuity (PCON)& Very High & 0.81 \\
+	Application Experience (APEX) & Low-Very Low & 1.15 \\
+	Platform Experience (PLEX) & Low & 1.09 \\
+	Language and Tool Experience (LTEX)& Nominal & 1.00 \\
+	Use of Software Tools (TOOL)& High & 0.90 \\
+	Multisite development (SITE)& High & 0.93 \\
+	Required development schedule (SCED)& Low &1.14 \\ \hline
+	\multicolumn{1}{|l}{\textbf{Total product} && \textbf{1.1096} \\ \hline
+\end{tabular}
+
+\subsection{Effort Equation}
+
+Finally, we can apply the formulas COCOMO II supplies us with to compute the effort estimation in PM.
+We first compute the exponent E we will apply later in the effort formula.
+
+\[ E = B + 0.01 \cdot \sum_{i=1}^5 SF_i = 1.1034 \]
+
+where B = 0.91 and the 0.01 constant value are empirically measured and in compliance with the COCOMO II algorithm, and \( SF_i \) stands for each of the Scale Factors mentioned in the previous paragraphs.
+
+The effort equation according to the method is as follows:
+
+\[ Effort = A \cdot Size^E \cdot \prod_{i=1}^17 EM_i \]
+
+where A = 2.94 is a constant in PM/KSLOC, Size is the LOC number found earlier in this chapter expressed in KSLOC, E is the exponent we have computed right above and \( EM_i \) stands for each of the Effort Multipliers we dealt with talking about Cost Drivers.
+
+Since for the LOC we provided a lower and an upper bound, so will we do for the effort.
+
+\[ lower \> bound \> Effort = A \cdot lower \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{19,903 PM \approx 20 PM} \]
+\[ upper \> bound \> Effort = A \cdot upper \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{30,134 PM \approx 30 PM} \]
+
+\subsection{Schedule Estimation}
+
+We are now ready to extract the schedule estimation in terms of months needed for the project development. First we need to obtain another exponent F:
+
+\[ F = 0.28 + 0.2 \cdot (E - B) = 0.31868 \]
+
+Then we can apply the following formula to obtain the estimated duration:
+
+\[ Duration = 3.67 \cdot Effort^F \]
+
+Splitting this last one in two, we derive the lower and upper bound for the duration:
+
+\[ lower \> bound \> Duration = 3.67 \cdot lower \> bound \> Effort^F = \textbf{9.52 months} \]
+\[ upper \> bound \> Duration = 3.67 \cdot upper \> bound \> Effort^F = \textbf{10.86 months} \]

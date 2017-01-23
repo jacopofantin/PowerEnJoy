@@ -1,0 +1,37 @@
+\chapter{Risk Management}
+
+Here we want to define the principle risks that our team could face.
+\newline
+There could be technical problems, or maybe financial or political ones.
+This last category could cause big problem to the whole system, so it would be a good practice mantaining a good relationship with local government and anticipate possible changes of laws or standards during the project initial phases. 
+National legislation could change too. Traffic laws changes quite often, maybe just in little particulars but these can cause big problems to our system if not predicted before.
+For example, if the standard for the ID or the payment system or the driving licence changes after the software was already developed it will be a big issue for the team that implemented and tested relative components. These kind of issues could bring a big loss of time and money, and a delay on the project deadlines, in addition to inconveniences to the developers that have worked for nothing.
+\newline
+A way to contain possible problem like these is to get involved the maximum number of people in the development of the project in order to have multiple opinions and mantain the developers updated on every kind of possible changes of the external enviroment.
+\newline
+\newline
+The same rules are valid with possible problems with the stakeholders.
+They should have an active role in the development of the system, they must be kept always updated on the temporary results. In the case that they are not satisfied, this should be discovered as soon as possible.
+Obviously, this is because the more the project proceed the higher is the cost of changes to the project.
+Every time it is possible, a meeting with stakeholders should be a good idea in order to predict possible issues.
+\newline
+\newline
+Possbile risks could be introduced by financial issues too.
+These is a bigger problem, because these kind of issues are generally unpredictable.
+It's possible that a sudden crisis causes a loss of money for the whole project. This is actually quite common, however, this situation could be solved with a release of less functionalities on the original date of finish, keeping all the other missing parts for later releases or updates of the system.
+
+\clearpage
+
+Another possible problem is the possibility of people quitting the company during the development, as the IT job market is quite flexible. This is why splitting duties and responsibilities across multiple people is mandatory so that there are not single persons in charge of a single task.
+Problems should rise also from overstimation of knowledge of our team, so it's always better to consider possbile loss of time due to the study of new technologies or improvements to frameworks or programming languages.
+\newline
+One of the biggest possible problem is related to our dependency on external components and APIs. 
+A change in the terms and conditions or on the inputs or outputs of an API itself, could pose serious technical problems. For what concerns the database it is not such a great problem, because there are a lot of  vendors and the access methods are more or less standardized, but for what concerns external APIs like the mapping service (Google Maps) or other external routines, it's worth being updated on every kind of changes or updates.
+\newline
+A good habit is to design the code to be as portable as possible and with a great modularity and complete independence between components.
+\newline
+\newline
+For the persistence of the data, it's a good practice to have redundant copies of the database with the RAID techinque.
+The source code have to be part of backups too through and should be uploaded everytime on the proper git private repository.
+Other kind of risks are related to the failure of the hardware installed in the cars.
+The two car interfaces and their internet connection to the system should be periodically controlled. These kind of maintenence problems and issues should be covered by our Support System that we have shown in our previous documents.
