@@ -125,8 +125,10 @@ Luckily, we are in the Post-Architecture case, so we'll be able to rely on simil
 
 The second step is determing the right values for the Scale Factors that will make up a part of the final formula used to calculate the effort. While estabilishing the values for Scale Factors the following table provided by the COCOMO II approach has been employed.
 
+\vspace{16pt}
+
 %\begin{tabular}{ | L{1.25cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | L{2cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
 	\textbf{Scale Factors} & \textbf{Very Low} & \textbf{Low} & \textbf{Nominal} & \textbf{High} & \textbf{Very High} & \textbf{Extra High} \\ \hline
 	PREC  SFj  & thoroughly unprecedented 6.20 & largely unprecedented 4.96 & somewhat unprecedented 3.72 & generally familiar 2.48 & largely familiar 1.42 & thoroughly familiar 0.00 \\ \hline
@@ -136,6 +138,8 @@ The second step is determing the right values for the Scale Factors that will ma
 	TEAM SFj  & very difficult interactions 5.48 & some difficult interactions 4.38 & basically cooperative interactions 3.29 & largely cooperative 2.19 & highly cooperative 1.10 & seamless interactions 0.00  \\ \hline
 	PMAT SFj  & SW-CMM Level 1 Lower 7.80 & SW-CMM Level 1 Upper 6.24 & SW-CMM Level 2 4.86 & SW-CMM Level 3 3.12 & SW-CMM Level 3  1.56 & SW-CMM Level 5  0.00 \\ \hline
 \end{tabular}
+
+\clearpage
 
 For each Scale Factor, we tried to decide for our situation what was the best describing case.
 
@@ -157,7 +161,7 @@ A table with the final values is shown below:
 	Risk resolution (RESL) & Nominal & 4.24  \\ \hline
 	Team cohesion (TEAM)  & Very high &  1.10  \\ \hline
 	Process maturity (PMAT) &  Low & 6.00 \\ \hline
-         \multicolumn{1}{|l}{}\textbf{Total} &  & \textbf{19,34} \\ \hline
+         \multicolumn{1}{|l|}{}\textbf{Total} &  & \textbf{19,34} \\ \hline
 \end{tabular}
 \end{center}
 
@@ -169,7 +173,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Required Software Reliability (RELY):] this parameter measures how much damage a service interruption would cause, mostly from a financial viewpoint. As the potential users would expect a strong reliability on the PowerEnJoy system, we assign a the "high" label to this Cost Driver.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Required Software Reliability (RELY)}} \\ \hline  \hline
 	\textbf{RELY Descriptors} & Slight Inconvenience & Low, easily recoverable losses & Moderate, easily recoverable losses & High financial loss & Risk to human life& \\ \hline
@@ -180,7 +184,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Database size (DATA):] an estimation of the DB size is given by COCOMO II through the D/P ratio(DB bytes/LOC). Considering that we expect our DB to contain more or less 2GB of data, and remembering the computed number of LOC is in the range of 5150-7500, the resulting D/P ratio falls in the range of 400-582, so DATA assumes a high value.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Database size (DATA)}} \\ \hline  \hline
 	\textbf{DATA Descriptors} & & D/P<10&10 < D/P <100 &100 < D/P <1000 & D/P >1000  & \\ \hline
@@ -191,7 +195,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Product complexity (CPLX):] as we tried to keep the software structure and components as simple as possible, we believe the level of complexity should be considered as nominal.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Product complexity (CPLX)}} \\ \hline  \hline
 	\textbf{Rating}&Very Low & Low & Nominal  & High & Very High &Extra High\\ \hline
@@ -201,7 +205,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Required reusability (RUSE):] reusability was not a priority for our specifications and was never explicitly requested by the customer, thus RUSE assumes a nominal value.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Required reusability (RUSE)}} \\ \hline  \hline
          	\textbf{RUSE Descriptons} & & None & Across project & Across program& Across product line &Across multiple product lines \\ \hline
@@ -212,7 +216,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Documentation match to life cycle needs (DOCU):] the DOCU evaluates whether the project documentation meets the needs of the project life cycle. Since the project documentation is up to date with the project life cycle needs the evaluation will be again set as nominal.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Documentation match to life-cycle needs  (DOCU)}} \\ \hline  \hline
          	\textbf{DOCU Descriptons} &Many life-cycle needs uncovered & Some life-cycle needs uncovered & Rightsized to life-cycle needs &  Excessive for lifecycle needs & Very excessive for life-cycle needs &\\ \hline
@@ -223,7 +227,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Execution time constraint (TIME):] Being this Cost Driver the measure of the usage of the CPU processing power, and considering that the service has a strong real-time constraint due to the fact that it is supposed to receive lots of requests each minute, we label TIME with high.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Execution time constraint (TIME)}} \\ \hline  \hline
          	\textbf{TIME Descriptons} & & & <= 50\% use of available execution time& 70\% use of available execution time& 85\% use of available execution time &95\% use of available execution time\\ \hline
@@ -234,7 +238,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Storage constraint (STOR):] the STOR evaluates the storage constraint that is imposed in a software. We didn't take into acccount particular storage limitation, and we don't expect the application to need that much storage capacity. That's why we will just consider this driver as nominal.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Storage constraint (STOR)}} \\ \hline  \hline
          	\textbf{STOR Descriptons} & & & <= 50\% use of available execution time& 70\% use of available execution time& 85\% use of available execution time &95\% use of available execution time\\ \hline
@@ -245,7 +249,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Platform Volatility (PVOL):] the higher this parameter, the more frequent will be the updates of the source code. Being PowerEnJoy first of all a mobile application, and considering the fact that we are concerned to release only the essential functions with the first release of the software, we expect PVOL to be in between a nominal and a high value, with major changes on average every 4 months and weekly minor changes.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Platform Volatility (PVOL)}} \\ \hline  \hline
          	\textbf{PVOL Descriptons} & & Major change every 12 month, minor change every 1 month.&Major change every 6 month, minor change every 2 weeks.&Major change every 2 month, minor change every 1 week.& Major change every 2 weeks, minor change every 2 days. & \\ \hline
@@ -256,7 +260,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Analyst Capability (ACAP):] ACAP shows the level of ability and efficiency of the team as for the analysis skills. We consider our analysis work as more than sufficient as we came to a deep enough level of comprehension of the problem solved by the app.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Analyst Capability (ACAP)}} \\ \hline  \hline
          	\textbf{ACAP Descriptons} & 15th percentile &35th percentile& 55th percentile& 75th percentile & 95th percentile&\\ \hline
@@ -278,7 +282,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Personnel Continuity (PCON):] The personnel continuity factor indicates how much of the project team will change in one year. It assumes the maximal value in our case, because we are going to end up the project exactly like we started.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Personnel Continuity (PCON)}} \\ \hline  \hline
          	\textbf{PCON Descriptons} & 48\% per year&24\% per year&12\% per year&6\% per year&3\% per year&\\ \hline
@@ -289,7 +293,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Application Experience (APEX):] APEX gives an idea of the experience the team has with the application. As we nearly passed 4 months dealing with this software, the suitable value would be something between low and very low.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Application Experience (APEX)}} \\ \hline  \hline
          	\textbf{APEX Descriptons} & <= 2 months & 6 months&1 year & 3 year& 6 year&\\ \hline
@@ -300,7 +304,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Platform Experience (PLEX):] this is the the rating of the experience of the group with the development platform, which in our case is Java EE. Therefore we decide to evaluate it as low since none of us is confident with this platform at the time being.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Platform Experience (PLEX)}} \\ \hline  \hline
          	\textbf{PLEX Descriptons} & <= 2 months & 6 months &1 year & 3 year& 6 year&\\ \hline
@@ -311,7 +315,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Language and Tool Experience (LTEX):] similar to the PLEX, the LTEX stands for team members experience with the language and tools that have been employed for the project development. We decided to choose a nominal level as an average between our long term experience with the language, Java, and the short term experience with the development tools such as the development platform.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Language and Tool Experience (LTEX)}} \\ \hline  \hline
          	\textbf{LTEX Descriptons} & <= 2 months & 6 months &1 year & 3 year& 6 year&\\ \hline
@@ -322,7 +326,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Use of Software Tools (TOOL):] this Cost Driver is useful to understand what kind of developing method and environment has been employed to carry on the project. We had at disposal strong enough software tools that support modern programming and software engineering patterns in an integrated way, so TOOL is evalueted as high.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Use of Software Tools (TOOL)}} \\ \hline  \hline
          	\textbf{TOOL Descriptons} &Edit, code, debug &Simple, frontend, backend CASE, little integration & Basic lifecycle tools, moderately integrated.& Strong, mature lifecycle tools, moderately integrated & Strong, mature, proactive lifecycle tools, well integrated with processes, methods, reuse.&\\ \hline
@@ -334,7 +338,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Multisite development (SITE)}} \\ \hline  \hline
          	\textbf{SITE Collocation} &International&Multi-city and multicompany& Multi-city or multicompany& Same city or metro area&Same building or complex&Fully collocated\\ \hline
@@ -346,7 +350,7 @@ The next step is evaluating a set of parameters called Cost Drivers, giving an a
 \item[Required development schedule (SCED):] the parameter measures how much time has been employed by the development team more or less than the nominal required amount of effort in the development of a project. It is evaluated as low due to the fact that a little less time than the nominal one has been spent by the members for PowerEnJoy, mainly because of othersimultaneous pending tasks.
 
 %\begin{tabular}{ | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | L{1.5cm} | }
-\begin{tabular}{ | c | c | c | c | c | c | c | }
+\begin{tabular}{|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.15\textwidth}|p{0.15\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
 \hline
          \multicolumn{7}{|c|}{\textbf{Required development schedule (SCED)}} \\ \hline  \hline
          	\textbf{SCED Descriptons} &75\% of nominal &85\% of nominal &100\% of nominal &130\% of nominal &160\% of nominal &\\ \hline
@@ -377,7 +381,7 @@ Putting together all the results of the analyzed points we obtained the followin
 	Use of Software Tools (TOOL)& High & 0.90 \\
 	Multisite development (SITE)& High & 0.93 \\
 	Required development schedule (SCED)& Low &1.14 \\ \hline
-	\multicolumn{1}{|l}{\textbf{Total product} && \textbf{1.1096} \\ \hline
+	\multicolumn{1}{|l|}{\textbf{Total product}} && \textbf{1.1096} \\ \hline
 \end{tabular}
 
 \subsection{Effort Equation}
@@ -397,8 +401,8 @@ where A = 2.94 is a constant in PM/KSLOC, Size is the LOC number found earlier i
 
 Since for the LOC we provided a lower and an upper bound, so will we do for the effort.
 
-\[ lower \> bound \> Effort = A \cdot lower \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{19,903 PM \approx 20 PM} \]
-\[ upper \> bound \> Effort = A \cdot upper \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{30,134 PM \approx 30 PM} \]
+\[ lower \> bound \> Effort = A \cdot lower \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{19,903 PM} \approx 20 PM \]
+\[ upper \> bound \> Effort = A \cdot upper \> bound \> Size^E \cdot \prod_{i=1}^17 EM_i = \textbf{30,134 PM} \approx 30 PM \]
 
 \subsection{Schedule Estimation}
 
